@@ -1,0 +1,52 @@
+// Mirror of backend RolePermissions.java
+export const PERMISSIONS = {
+  PRODUCT_VIEW:    "PRODUCT_VIEW",
+  PRODUCT_CREATE:  "PRODUCT_CREATE",
+  PRODUCT_EDIT:    "PRODUCT_EDIT",
+  PRODUCT_DELETE:  "PRODUCT_DELETE",
+
+  SALE_CREATE:     "SALE_CREATE",
+  SALE_VIEW:       "SALE_VIEW",
+  SALE_REFUND:     "SALE_REFUND",
+
+  INVENTORY_VIEW:  "INVENTORY_VIEW",
+  INVENTORY_EDIT:  "INVENTORY_EDIT",
+  BATCH_ADD:       "BATCH_ADD",
+
+  REPORT_VIEW:     "REPORT_VIEW",
+  ANALYTICS_VIEW:  "ANALYTICS_VIEW",
+  DASHBOARD_VIEW:  "DASHBOARD_VIEW",
+
+  USER_MANAGE:     "USER_MANAGE",
+  SETTINGS_EDIT:   "SETTINGS_EDIT",
+};
+
+const ROLE_PERMISSIONS = {
+  ADMIN: new Set([
+    "PRODUCT_VIEW", "PRODUCT_CREATE", "PRODUCT_EDIT", "PRODUCT_DELETE",
+    "SALE_CREATE",  "SALE_VIEW",      "SALE_REFUND",
+    "INVENTORY_VIEW","INVENTORY_EDIT","BATCH_ADD",
+    "REPORT_VIEW",  "ANALYTICS_VIEW", "DASHBOARD_VIEW",
+    "USER_MANAGE",  "SETTINGS_EDIT",
+  ]),
+  MANAGER: new Set([
+    "PRODUCT_VIEW", "PRODUCT_CREATE", "PRODUCT_EDIT",
+    "SALE_CREATE",  "SALE_VIEW",      "SALE_REFUND",
+    "INVENTORY_VIEW","INVENTORY_EDIT","BATCH_ADD",
+    "REPORT_VIEW",  "ANALYTICS_VIEW", "DASHBOARD_VIEW",
+  ]),
+  CASHIER: new Set([
+    "PRODUCT_VIEW",
+    "SALE_CREATE",  "SALE_VIEW",
+    "INVENTORY_VIEW",
+    "DASHBOARD_VIEW",
+  ]),
+};
+
+export const RolePermissions = {
+  hasPermission: (role, permission) =>
+    ROLE_PERMISSIONS[role]?.has(permission) ?? false,
+
+  getPermissions: (role) =>
+    [...(ROLE_PERMISSIONS[role] ?? new Set())],
+};
